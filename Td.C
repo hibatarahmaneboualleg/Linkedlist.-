@@ -145,6 +145,7 @@ struct Element* findIntersection(struct Element* L1, struct Element* L2) {
 int main() {
     struct Element* head = NULL;
     struct Element* head2 = NULL;
+    struct Element* L3 = NULL;
     int choice, x;
 
     do {
@@ -211,12 +212,11 @@ int main() {
                 printf("\nAfter merging second list into first list:");
                 display(head);
                 break;
-            case 11: {
-                struct Element* inter = findIntersection(head, head2);
-                printf("\nIntersection list:");
-                display(inter);
+            case 11:
+                L3 = findIntersection(head, head2);
+                printf("\nIntersection list (L3):");
+                display(L3);
                 break;
-            }
             case 0:
                 printf("\nExiting...");
                 break;
