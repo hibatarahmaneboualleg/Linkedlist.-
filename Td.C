@@ -1,6 +1,6 @@
-#include<stdio.h>
-#include<stdlib.h>
-#include<stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
 
 typedef struct Element {
     int value;
@@ -17,6 +17,32 @@ struct Element* insert(struct Element* head, int x) {
         struct Element* l = head;
         while (l->next != NULL) l = l->next;
         l->next = p;
+    }
+    return head;
+}
+
+struct Element* insertInTheHead(struct Element* head, int x) {
+    struct Element* p = (struct Element*)malloc(sizeof(struct Element));
+    p->value = x;
+    p->next = head;
+    head = p;
+    return head;
+}
+
+struct Element* insertSorted(struct Element* head, int x) {
+    struct Element* p = (struct Element*)malloc(sizeof(struct Element));
+    p->value = x;
+    p->next = NULL;
+    if (head == NULL || x <= head->value) {
+        p->next = head;
+        head = p;
+    } else {
+        struct Element* current = head;
+        while (current->next != NULL && current->next->value < x) {
+            current = current->next;
+        }
+        p->next = current->next;
+        current->next = p;
     }
     return head;
 }
@@ -61,14 +87,6 @@ int numberOcc(struct Element* head, int x) {
         p = p->next;
     }
     return counter;
-}
-
-struct Element* insertInTheHead(struct Element* head, int x) {
-    struct Element* p = (struct Element*)malloc(sizeof(struct Element));
-    p->value = x;
-    p->next = head;
-    head = p;
-    return head;
 }
 
 struct Element* delete(struct Element* head, int x) {
@@ -161,9 +179,11 @@ int main() {
         printf("\n9. Display second list");
         printf("\n10. Merge second list into first list");
         printf("\n11. Find intersection between first and second list");
+        printf("\n12. Insert in sorted list");
         printf("\n0. Exit");
         printf("\nPlease enter your choice: ");
         scanf("%d", &choice);
+
         switch (choice) {
             case 1:
                 printf("\nEnter value to insert at the end: ");
@@ -216,6 +236,11 @@ int main() {
                 L3 = findIntersection(head, head2);
                 printf("\nIntersection list (L3):");
                 display(L3);
+                break;
+            case 12:
+                printf("\nEnter value to insert in sorted order: ");
+                scanf("%d", &x);
+                head = insertSorted(head, x);
                 break;
             case 0:
                 printf("\nExiting...");
