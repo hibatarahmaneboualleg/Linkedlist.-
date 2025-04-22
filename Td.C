@@ -1,4 +1,4 @@
-#include<stdio.h>   
+#include<stdio.h>
 #include<stdlib.h>
 #include<stdbool.h>
 
@@ -128,6 +128,20 @@ struct Element* mergeLists(struct Element* L1, struct Element* L2) {
     return L1;
 }
 
+struct Element* findIntersection(struct Element* L1, struct Element* L2) {
+    struct Element* intersection = NULL;
+    struct Element* p = L1;
+    while (p != NULL) {
+        if (exist(L2, p->value)) {
+            if (!exist(intersection, p->value)) {
+                intersection = insert(intersection, p->value);
+            }
+        }
+        p = p->next;
+    }
+    return intersection;
+}
+
 int main() {
     struct Element* head = NULL;
     struct Element* head2 = NULL;
@@ -145,6 +159,7 @@ int main() {
         printf("\n8. Insert in second list");
         printf("\n9. Display second list");
         printf("\n10. Merge second list into first list");
+        printf("\n11. Find intersection between first and second list");
         printf("\n0. Exit");
         printf("\nPlease enter your choice: ");
         scanf("%d", &choice);
@@ -196,6 +211,12 @@ int main() {
                 printf("\nAfter merging second list into first list:");
                 display(head);
                 break;
+            case 11: {
+                struct Element* inter = findIntersection(head, head2);
+                printf("\nIntersection list:");
+                display(inter);
+                break;
+            }
             case 0:
                 printf("\nExiting...");
                 break;
