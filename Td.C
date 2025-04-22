@@ -173,14 +173,4 @@ int main() {
                 printf("\nInvalid choice! Please try again.");
         }
     } while (choice != 0);
-
-    // Free memory before exiting
-    struct Element* current = head;
-    while (current != NULL) {
-        struct Element* next = current->next;
-        free(current);
-        current = next;
-    }
-
-    return 0;
 }
